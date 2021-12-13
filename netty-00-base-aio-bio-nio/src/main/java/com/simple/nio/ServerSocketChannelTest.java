@@ -39,6 +39,7 @@ public class ServerSocketChannelTest {
                 System.out.println("Incoming connection from: " +
                         accept.socket().getRemoteSocketAddress());
                 buffer.rewind();
+                // 拿到数据后，这里会去写给连接的那方
                 accept.write(buffer);
                 accept.close();
             }
