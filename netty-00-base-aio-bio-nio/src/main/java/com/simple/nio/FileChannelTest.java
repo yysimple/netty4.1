@@ -2,10 +2,13 @@ package com.simple.nio;
 
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 功能描述: 文件管道
@@ -25,12 +28,11 @@ public class FileChannelTest {
      * -----
      * 5. 切换模式，使其可以读，此时:
      * position = limit = (dataSize > bufferSzie ? bufferSzie : dataSize),capacity = 20
-     *
+     * <p>
      * 6. 循环读完”一个大小的缓存“之后，调用clear清空”缓存“：
      * position = 0（数据大小）；limit = capacity = bufferSzie（缓存定义的大小） = 20
-     *
+     * <p>
      * 7. 一直循环读，知道没有数据为止；最后关闭文件流
-     *
      *
      * @throws IOException
      */
@@ -64,7 +66,23 @@ public class FileChannelTest {
     }
 
     @Test
-    public void fileChannelWriteTest() {
+    public void fileChannelWriteTest() throws IOException {
+        RandomAccessFile accessFile = new RandomAccessFile("D:\\2.txt", "rw");
+        FileChannel channel = accessFile.getChannel();
+        String dataC = "我就是测试一下啊,可能乱码";
+        // 这里如果缓存空间没有数据大，也即如果缓存放不下数据，则抛出异常
+        ByteBuffer buffer = ByteBuffer.allocate(48);
+        buffer.clear();
+        // 把数据方法缓存中 StandardCharsets.UTF_8
+        buffer.put(dataC.getBytes());
 
+        // 切换模式，现在是从缓存中获取数据
+        buffer.flip();
+        // 开始写，只要缓存中还有数据，就一直写
+        while (buffer.hasRemaining()) {
+            channel.write(buffer);
+        }
+        channel.close();
+        accessFile.close();
     }
 }
