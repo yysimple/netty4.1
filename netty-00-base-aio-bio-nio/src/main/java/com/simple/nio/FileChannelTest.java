@@ -2,10 +2,8 @@ package com.simple.nio;
 
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -17,6 +15,25 @@ import java.nio.channels.FileChannel;
  **/
 public class FileChannelTest {
 
+    /**
+     * 这里的大致步骤：
+     * 1. 通过IO拿到文件信息
+     * 2. 通过文件信息拿到”通道“
+     * 3. 初始化一个用来传输数据的”缓存“
+     * 4. 把”通道“里面的数据读取到”缓存“中 -- 该步骤之下：
+     * position = dataSize（数据大小）；limit = capacity = bufferSzie（缓存定义的大小） = 20
+     * -----
+     * 5. 切换模式，使其可以读，此时:
+     * position = limit = (dataSize > bufferSzie ? bufferSzie : dataSize),capacity = 20
+     *
+     * 6. 循环读完”一个大小的缓存“之后，调用clear清空”缓存“：
+     * position = 0（数据大小）；limit = capacity = bufferSzie（缓存定义的大小） = 20
+     *
+     * 7. 一直循环读，知道没有数据为止；最后关闭文件流
+     *
+     *
+     * @throws IOException
+     */
     @Test
     public void fileChannelReadTest() throws IOException {
         // 1. 借助io流拿到文件
