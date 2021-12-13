@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
@@ -84,5 +85,98 @@ public class FileChannelTest {
         }
         channel.close();
         accessFile.close();
+    }
+
+    @Test
+    public void channelOtherMethodTest() throws IOException {
+        RandomAccessFile accessFile = new RandomAccessFile("D:\\2.txt", "rw");
+        String dataC = "我就是测试一下啊,可能乱码";
+        System.out.println("测试数据的长度：" + dataC.getBytes(StandardCharsets.UTF_8).length);
+        FileChannel channel = accessFile.getChannel();
+        long position = channel.position();
+        System.out.println(position + 10);
+        System.out.println("通道里面的数据大小：" + channel.size());
+        ByteBuffer buffer = ByteBuffer.allocate(48);
+        // 截取文件时，文件将中指定长度后面的部分将被删除,这个操作是危险的，就算你在读的时候，这个文件也会被修改
+        channel.truncate(5);
+        int read = channel.read(buffer);
+        while (read != -1) {
+            buffer.flip();
+            while (buffer.hasRemaining()) {
+                System.out.println("读取出来的数据：" + (char) buffer.get());
+            }
+            // 用完之后一定要清空
+            buffer.clear();
+            read = channel.read(buffer);
+        }
+        channel.close();
+        accessFile.close();
+    }
+
+    @Test
+    public void transferFromTest() throws IOException {
+        RandomAccessFile from = new RandomAccessFile("D:\\2.txt", "rw");
+        FileChannel channelFrom = from.getChannel();
+
+        // 不存在这个文件会帮你创建该文件
+        RandomAccessFile to = new RandomAccessFile("D:\\3.txt", "rw");
+        FileChannel channelTo = to.getChannel();
+
+        long position = 0;
+        long count = channelFrom.size();
+        channelTo.transferFrom(channelFrom, position, count);
+
+        channelFrom.close();
+        channelTo.close();
+        from.close();
+        to.close();
+
+    }
+
+    @Test
+    public void transferToTest() throws IOException {
+        RandomAccessFile from = new RandomAccessFile("D:\\4.txt", "rw");
+        FileChannel channelFrom = from.getChannel();
+
+        // 不存在这个文件会帮你创建该文件
+        RandomAccessFile to = new RandomAccessFile("D:\\3.txt", "rw");
+        FileChannel channelTo = to.getChannel();
+
+        long position = 0;
+        long count = channelTo.size();
+        channelTo.transferTo(position, count, channelFrom);
+
+        channelTo.close();
+        channelFrom.close();
+        to.close();
+        from.close();
+    }
+
+    @Test
+    public void testScatteringReads() throws IOException {
+        RandomAccessFile from = new RandomAccessFile("D:\\4.txt", "rw");
+        FileChannel channel = from.getChannel();
+        ByteBuffer header = ByteBuffer.allocate(128);
+        ByteBuffer body = ByteBuffer.allocate(1024);
+        ByteBuffer[] bufferArrayR = {header, body};
+        /**
+         * 注意 buffer 首先被插入到数组，然后再将数组作为 channel.read() 的输入参数。
+         * read()方法按照 buffer 在数组中的顺序将从 channel 中读取的数据写入到 buffer，当
+         * 一个 buffer 被写满后，channel 紧接着向另一个 buffer 中写。
+         * Scattering Reads 在移动下一个 buffer 前，必须填满当前的 buffer，这也意味着它
+         * 不适用于动态消息(译者注：消息大小不固定)。换句话说，如果存在消息头和消息体，
+         * 消息头必须完成填充（例如 128byte），Scattering Reads 才能正常工作
+         */
+        long read = channel.read(bufferArrayR);
+
+        ByteBuffer[] bufferArrayW = { header, body };
+        /**
+         * buffers 数组是 write()方法的入参，write()方法会按照 buffer 在数组中的顺序，将数
+         * 据写入到 channel，注意只有 position 和 limit 之间的数据才会被写入。因此，如果
+         * 一个 buffer 的容量为 128byte，但是仅仅包含 58byte 的数据，那么这 58byte 的数
+         * 据将被写入到 channel 中。因此与 Scattering Reads 相反，Gathering Writes 能较
+         * 好的处理动态消息。
+         */
+        channel.write(bufferArrayW);
     }
 }
