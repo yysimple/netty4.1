@@ -79,4 +79,117 @@ public class BufferSliceTest {
             System.out.println(readonly.get());
         }
     }
+
+    /**
+     * 直接缓存区
+     */
+    @Test
+    public void bufferDirectTest(){
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024);
+        System.out.println(byteBuffer.isDirect());
+    }
+
+    /**
+     * 测试mark方法
+     */
+    @Test
+    public void markTest(){
+        String str = "abcde";
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        byteBuffer.put(str.getBytes());
+
+        byte[] dst = new byte[byteBuffer.limit()];
+        byteBuffer.flip();
+        byteBuffer.get(dst, 0, 2);
+        // 2
+        System.out.println(byteBuffer.position());
+
+        // 标记position为2的位置
+        byteBuffer.mark();
+        byteBuffer.get(dst, 2, 2);
+        // 4
+        System.out.println(byteBuffer.position());
+
+        // 重置到标记的位置
+        byteBuffer.reset();
+        // 2
+        System.out.println(byteBuffer.position());
+
+        // 判断缓存中是否还设有数据
+        if (byteBuffer.hasRemaining()){
+            System.out.println("缓存中剩余的数据数量：" + byteBuffer.remaining());
+        }
+    }
+
+    /**
+     * 测试position、capacity、limit三者值，在不同阶段的变化
+     */
+    @Test
+    public void threeForPCLTest() {
+        String str = "abcde";
+        // 1. 分配一个指定的缓冲区大小
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+
+        // 2. 刚初始化时：position、capacity、limit
+        System.out.println("=========== 初始化时的三者值 ============");
+        // position = 0
+        System.out.println(byteBuffer.position());
+        // capacity = 1024
+        System.out.println(byteBuffer.capacity());
+        // limit = 1024
+        System.out.println(byteBuffer.limit());
+
+        // 3. 添加数据到缓存区
+        byteBuffer.put(str.getBytes());
+        System.out.println("=========== 添加数据后的三者值 ============");
+        // position = 5
+        System.out.println(byteBuffer.position());
+        // capacity = 1024
+        System.out.println(byteBuffer.capacity());
+        // limit = 1024
+        System.out.println(byteBuffer.limit());
+
+        // 4. 切换成读模式
+        byteBuffer.flip();
+        System.out.println("=========== 切换成读模式后的三者值 ============");
+        // position = 0
+        System.out.println(byteBuffer.position());
+        // capacity = 1024
+        System.out.println(byteBuffer.capacity());
+        // limit = 5
+        System.out.println(byteBuffer.limit());
+
+        // 5. 利用 get() 读取缓冲区中的数据
+        byte[] bytes = new byte[byteBuffer.limit()];
+        byteBuffer.get(bytes);
+        System.out.println("=========== 读取数据后的三者值 ============");
+        // position = 5
+        System.out.println(byteBuffer.position());
+        // capacity = 1024
+        System.out.println(byteBuffer.capacity());
+        // limit = 5
+        System.out.println(byteBuffer.limit());
+        System.out.println(new String(bytes, 0, bytes.length));
+
+        // 6. rewind() : 可重复读
+        byteBuffer.rewind();
+        System.out.println("=========== 设置成可重复读后的三者值 ============");
+        // position = 0
+        System.out.println(byteBuffer.position());
+        // capacity = 1024
+        System.out.println(byteBuffer.capacity());
+        // limit = 5
+        System.out.println(byteBuffer.limit());
+
+        // 7. clear() : 清空缓冲区. 但是缓冲区中的数据依然存在，但是处于“被遗忘”状态
+        byteBuffer.clear();
+        System.out.println("=========== 清除缓存区后的三者值 ============");
+        // position = 0
+        System.out.println(byteBuffer.position());
+        // capacity = 1024
+        System.out.println(byteBuffer.capacity());
+        // limit = 1024
+        System.out.println(byteBuffer.limit());
+        System.out.println((char) byteBuffer.get());
+    }
 }
