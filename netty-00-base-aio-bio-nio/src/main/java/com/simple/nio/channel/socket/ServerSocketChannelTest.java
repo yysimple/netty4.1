@@ -1,4 +1,4 @@
-package com.simple.nio;
+package com.simple.nio.channel.socket;
 
 
 import java.io.IOException;

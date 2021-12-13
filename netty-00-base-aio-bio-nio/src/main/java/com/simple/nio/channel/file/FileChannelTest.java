@@ -1,4 +1,4 @@
-package com.simple.nio;
+package com.simple.nio.channel.file;
 
 import org.junit.Test;
 
