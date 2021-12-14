@@ -1,4 +1,4 @@
-package com.simple.server;
+package com.simple.demo.server;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
