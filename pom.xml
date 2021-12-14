@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>netty-00-base-aio-bio-nio</module>
+        <module>netty-01-01-initnetty-demo</module>
     </modules>
 
     <properties>
