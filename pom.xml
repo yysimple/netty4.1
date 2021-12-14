@@ -11,6 +11,7 @@
     <modules>
         <module>netty-00-base-aio-bio-nio</module>
         <module>netty-01-01-initnetty-demo</module>
+        <module>00-netty-actual-combat</module>
     </modules>
 
     <properties>
