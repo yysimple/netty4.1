@@ -19,6 +19,7 @@
         <module>netty-01-06-batch-send</module>
         <module>netty-01-07-client-send</module>
         <module>netty-01-08-client-deal-method</module>
+        <module>netty-01-09-custom-coder</module>
     </modules>
 
     <properties>
