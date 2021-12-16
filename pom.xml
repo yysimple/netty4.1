@@ -13,6 +13,7 @@
         <module>netty-01-01-initnetty-demo</module>
         <module>00-netty-actual-combat</module>
         <module>netty-01-02-receive-msg</module>
+        <module>netty-01-03-builtin-coder</module>
     </modules>
 
     <properties>
