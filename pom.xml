@@ -13,8 +13,9 @@
         <module>netty-01-01-initnetty-demo</module>
         <module>00-netty-actual-combat</module>
         <module>netty-01-02-receive-msg</module>
-        <module>netty-01-03-builtin-coder</module>
+        <module>netty-01-03-builtin-Decoder</module>
         <module>netty-01-04-server-send</module>
+        <module>netty-01-05-buildin-Encoder</module>
     </modules>
 
     <properties>

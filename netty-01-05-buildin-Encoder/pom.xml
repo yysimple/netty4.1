@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>netty-01-03-builtin-coder</artifactId>
+    <artifactId>netty-01-05-buildin-Encoder</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
