@@ -1,13 +1,12 @@
-package simple.init;
+package com.simple.init;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
-import simple.handler.ServerReceiveMsgHandler;
+import com.simple.handler.ServerReceiveMsgHandler;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 功能描述:

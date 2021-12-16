@@ -1,10 +1,8 @@
-package simple.handler;
+package com.simple.handler;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

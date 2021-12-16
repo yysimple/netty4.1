@@ -1,12 +1,12 @@
-package simple.server;
+package com.simple.server;
 
+import com.simple.init.MyChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import simple.init.MyChannelInitializer;
 
 /**
  * 功能描述:
