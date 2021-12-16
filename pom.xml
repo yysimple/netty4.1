@@ -17,6 +17,7 @@
         <module>netty-01-04-server-send</module>
         <module>netty-01-05-buildin-Encoder</module>
         <module>netty-01-06-batch-send</module>
+        <module>netty-01-07-client-send</module>
     </modules>
 
     <properties>
