@@ -23,6 +23,7 @@
         <module>netty-01-10-outhandler</module>
         <module>netty-01-11-udp</module>
         <module>netty-01-12-http</module>
+        <module>netty-02-01-nettyinweb</module>
     </modules>
 
     <properties>
@@ -37,7 +38,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.36.Final</version>
+            <version>${netty_version}</version>
         </dependency>
         <!-- Log -->
         <dependency>

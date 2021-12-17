@@ -1,0 +1,5 @@
+netty:
+  host: 127.0.0.1
+  port: 9999
+server:
+  port: 8888
