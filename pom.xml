@@ -26,6 +26,7 @@
         <module>netty-02-01-nettyinweb</module>
         <module>netty-02-02-protobuf</module>
         <module>netty-02-03-javaobject</module>
+        <module>netty-02-04-transfer-file</module>
     </modules>
 
     <properties>
@@ -53,6 +54,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
