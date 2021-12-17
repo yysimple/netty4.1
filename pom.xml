@@ -25,6 +25,7 @@
         <module>netty-01-12-http</module>
         <module>netty-02-01-nettyinweb</module>
         <module>netty-02-02-protobuf</module>
+        <module>netty-02-03-javaobject</module>
     </modules>
 
     <properties>
