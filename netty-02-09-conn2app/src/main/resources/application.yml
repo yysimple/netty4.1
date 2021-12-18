@@ -1,0 +1,15 @@
+netty:
+  host: 127.0.0.1
+  port: 9999
+server:
+  port: 8888
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+  redis:
+    host: 192.168.109.135
+    port: 6379
+    password: 123456

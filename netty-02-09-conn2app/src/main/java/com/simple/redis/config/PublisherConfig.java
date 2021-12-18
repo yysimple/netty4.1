@@ -1,0 +1,25 @@
+package com.simple.redis.config;
+
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+
+/**
+ * 功能描述: 发布者的配置
+ *
+ * @author: WuChengXing
+ * @create: 2021-12-18 22:05
+ **/
+@Configuration
+public class PublisherConfig {
+
+    @Bean
+    public RedisTemplate<String, Object> redisMessageTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setDefaultSerializer(new FastJsonRedisSerializer<>(Object.class));
+        return template;
+    }
+}
