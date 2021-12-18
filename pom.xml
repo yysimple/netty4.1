@@ -30,6 +30,7 @@
         <module>netty-02-05-websocket</module>
         <module>netty-02-06-es</module>
         <module>netty-02-07-sync-send</module>
+        <module>netty-02-08-heart-beat</module>
     </modules>
 
     <properties>
