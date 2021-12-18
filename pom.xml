@@ -28,6 +28,8 @@
         <module>netty-02-03-javaobject</module>
         <module>netty-02-04-transfer-file</module>
         <module>netty-02-05-websocket</module>
+        <module>netty-02-06-es</module>
+        <module>netty-02-07-sync-send</module>
     </modules>
 
     <properties>
