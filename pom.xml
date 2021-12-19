@@ -34,6 +34,7 @@
         <module>netty-02-09-conn2app</module>
         <module>netty-02-10-commonimpl</module>
         <module>netty-02-11-chunked-stream</module>
+        <module>netty-02-12-traffic-shaping</module>
     </modules>
 
     <properties>
