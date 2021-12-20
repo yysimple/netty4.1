@@ -35,6 +35,7 @@
         <module>netty-02-10-commonimpl</module>
         <module>netty-02-11-chunked-stream</module>
         <module>netty-02-12-traffic-shaping</module>
+        <module>netty-03-01-rpc</module>
     </modules>
 
     <properties>
