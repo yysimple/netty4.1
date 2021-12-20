@@ -1,6 +1,5 @@
 package com.simple.server.socket;
 
-import com.simple.service.ExtServerService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

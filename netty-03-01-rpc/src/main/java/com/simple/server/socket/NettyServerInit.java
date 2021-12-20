@@ -1,6 +1,5 @@
 package com.simple.server.socket;
 
-import com.simple.service.ExtServerService;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
